@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Date;
+
 import enums.Frequencia;
 
 public class Rendimento {
@@ -8,14 +10,16 @@ public class Rendimento {
 	private String nomeRendimento;
 	private Frequencia frequenciaRendimento;
 	private double valorRendimento;
+	private Date data;
 	
 	public Rendimento(Categoria categoriaRendimento, String nomeRendimento, Frequencia frequenciaRendimento,
-			double valorRendimento) {
+			double valorRendimento, Date data) {
 		
 		this.categoriaRendimento = categoriaRendimento;
 		this.nomeRendimento = nomeRendimento;
 		this.frequenciaRendimento = frequenciaRendimento;
 		this.valorRendimento = valorRendimento;
+		this.data = data;
 	}
 
 	public Categoria getCategoriaRendimento() {
@@ -49,4 +53,14 @@ public class Rendimento {
 	public void setValorRendimento(double valorRendimento) {
 		this.valorRendimento = valorRendimento;
 	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+	
+	
 }
