@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.Categoria;
 import entities.Despesa;
 import enums.Frequencia;
 
@@ -56,7 +57,7 @@ private Connection conn;
 		
 		try {
 			
-			st = conn.prepareStatement("update despesa set nome = ?, codigo_categoria = ?, data = ?, frequencia = ?, valor = ? where id_categoria = ?");
+			st = conn.prepareStatement("update despesa set nome = ?, codigo_categoria = ?, data = ?, frequencia = ?, valor = ? where id_despesa = ?");
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        Date data = sdf.parse(despesa.getData());
@@ -67,6 +68,7 @@ private Connection conn;
 			st.setTimestamp(3, dataTimestamp);
 			st.setInt(4, despesa.getFrequenciaDespesa().ordinal());
 			st.setDouble(5, despesa.getValorDespesa());
+			st.setInt(6, despesa.getIdDespesa());
 			
 			st.executeUpdate();
 			
@@ -116,9 +118,12 @@ private Connection conn;
 				Despesa despesa = new Despesa();
 
 				despesa.setNomeDespesa(rs.getString("nome"));
-				despesa.getCategoriaDespesa().setIdCategoria(rs.getInt("codigo_categoria"));
+				int idCategoria = rs.getInt("codigo_categoria");
+				Categoria categoriaDespesa = new Categoria();
+				categoriaDespesa.setIdCategoria(idCategoria);
+				despesa.setCategoriaDespesa(categoriaDespesa);
 				despesa.setData(rs.getTimestamp("data").toString());
-				despesa.setFrequenciaDespesa(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+				despesa.setFrequenciaDespesa(Frequencia.values()[rs.getInt("frequencia")]);
 				despesa.setValorDespesa(rs.getDouble("valor"));
 				despesa.setIdDespesa(rs.getInt("id_despesa"));
 				

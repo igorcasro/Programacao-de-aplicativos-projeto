@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 import enums.Frequencia;
 
 public class FundoOcasional {
@@ -9,7 +7,7 @@ public class FundoOcasional {
 	private String nomeFundoOcasional;
 	private Frequencia frequenciaFundoOcasional;
 	private double valorFundoOcasional;
-	private Date data;
+	private String data;
 	private int idFundoOcasional;
 	
 	public FundoOcasional() {
@@ -40,11 +38,11 @@ public class FundoOcasional {
 		this.valorFundoOcasional = valorFundoOcasional;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
