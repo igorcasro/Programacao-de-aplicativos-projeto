@@ -10,13 +10,10 @@ public class FundoOcasional {
 	private Frequencia frequenciaFundoOcasional;
 	private double valorFundoOcasional;
 	private Date data;
+	private int idFundoOcasional;
 	
-	public FundoOcasional(String nomeFundoOcasional, Frequencia frequenciaFundoOcasional, double valorFundoOcasional, Date data) {
+	public FundoOcasional() {
 		
-		this.nomeFundoOcasional = nomeFundoOcasional;
-		this.frequenciaFundoOcasional = frequenciaFundoOcasional;
-		this.valorFundoOcasional = valorFundoOcasional;
-		this.data = data;
 	}
 
 	public String getNomeFundoOcasional() {
@@ -50,7 +47,13 @@ public class FundoOcasional {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
-	
+
+	public int getIdFundoOcasional() {
+		return idFundoOcasional;
+	}
+
+	public void setIdFundoOcasional(int idFundoOcasional) {
+		this.idFundoOcasional = idFundoOcasional;
+	}
 	
 }

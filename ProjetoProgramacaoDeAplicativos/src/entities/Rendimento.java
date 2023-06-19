@@ -11,15 +11,10 @@ public class Rendimento {
 	private Frequencia frequenciaRendimento;
 	private double valorRendimento;
 	private Date data;
+	private int idRendimento;
 	
-	public Rendimento(Categoria categoriaRendimento, String nomeRendimento, Frequencia frequenciaRendimento,
-			double valorRendimento, Date data) {
+	public Rendimento() {
 		
-		this.categoriaRendimento = categoriaRendimento;
-		this.nomeRendimento = nomeRendimento;
-		this.frequenciaRendimento = frequenciaRendimento;
-		this.valorRendimento = valorRendimento;
-		this.data = data;
 	}
 
 	public Categoria getCategoriaRendimento() {
@@ -61,6 +56,13 @@ public class Rendimento {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
+
+	public int getIdRendimento() {
+		return idRendimento;
+	}
+
+	public void setIdRendimento(int idRendimento) {
+		this.idRendimento = idRendimento;
+	}
 	
 }

@@ -10,13 +10,10 @@ public class Investimento {
 	private Frequencia frequenciaInvestimento;
 	private double valorInvestimento;
 	private Date data;
+	private int idInvestimento;
 	
-	public Investimento(String nomeInvestimento, Frequencia frequenciaInvestimento, double valorInvestimento, Date data) {
-	
-		this.nomeInvestimento = nomeInvestimento;
-		this.frequenciaInvestimento = frequenciaInvestimento;
-		this.valorInvestimento = valorInvestimento;
-		this.data = data;
+	public Investimento() {
+		
 	}
 
 	public String getNomeInvestimento() {
@@ -50,7 +47,13 @@ public class Investimento {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
-	
+
+	public int getIdInvestimento() {
+		return idInvestimento;
+	}
+
+	public void setIdInvestimento(int idInvestimento) {
+		this.idInvestimento = idInvestimento;
+	}
 	
 }
