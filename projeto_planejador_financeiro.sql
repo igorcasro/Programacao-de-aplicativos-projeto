@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 19/06/2023 às 22:24
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Host: localhost
+-- Tempo de geração: 20-Jun-2023 às 22:07
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,18 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categoria`
+-- Estrutura da tabela `categoria`
 --
 
 CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id_categoria`, `nome`) VALUES
+(2, 'Teste');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `despesa`
+-- Estrutura da tabela `despesa`
 --
 
 CREATE TABLE `despesa` (
@@ -45,27 +52,33 @@ CREATE TABLE `despesa` (
   `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `frequencia` int(11) NOT NULL,
   `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `despesa`
+--
+
+INSERT INTO `despesa` (`id_despesa`, `nome`, `codigo_categoria`, `data`, `frequencia`, `valor`) VALUES
+(3, 'Teste', 2, '2023-06-19 22:30:00', 0, 1200);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `fundo_ocasional`
+-- Estrutura da tabela `fundo_ocasional`
 --
 
 CREATE TABLE `fundo_ocasional` (
   `id_fundo_ocasional` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `codigo_categoria` int(11) NOT NULL,
   `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `frequencia` int(11) NOT NULL,
   `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `investimento`
+-- Estrutura da tabela `investimento`
 --
 
 CREATE TABLE `investimento` (
@@ -74,12 +87,12 @@ CREATE TABLE `investimento` (
   `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `frequencia` int(11) NOT NULL,
   `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `rendimento`
+-- Estrutura da tabela `rendimento`
 --
 
 CREATE TABLE `rendimento` (
@@ -89,78 +102,77 @@ CREATE TABLE `rendimento` (
   `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `frequencia` int(11) NOT NULL,
   `valor` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `categoria`
+-- Índices para tabela `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Índices de tabela `despesa`
+-- Índices para tabela `despesa`
 --
 ALTER TABLE `despesa`
   ADD PRIMARY KEY (`id_despesa`),
   ADD KEY `fk_codigo_categoria` (`id_despesa`);
 
 --
--- Índices de tabela `fundo_ocasional`
+-- Índices para tabela `fundo_ocasional`
 --
 ALTER TABLE `fundo_ocasional`
-  ADD PRIMARY KEY (`id_fundo_ocasional`),
-  ADD KEY `fk_codigo_categoria` (`codigo_categoria`) USING BTREE;
+  ADD PRIMARY KEY (`id_fundo_ocasional`);
 
 --
--- Índices de tabela `investimento`
+-- Índices para tabela `investimento`
 --
 ALTER TABLE `investimento`
   ADD PRIMARY KEY (`id_investimento`);
 
 --
--- Índices de tabela `rendimento`
+-- Índices para tabela `rendimento`
 --
 ALTER TABLE `rendimento`
   ADD PRIMARY KEY (`id_rendimento`),
   ADD KEY `fk_codigo_categoria` (`codigo_categoria`) USING BTREE;
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `despesa`
 --
 ALTER TABLE `despesa`
-  MODIFY `id_despesa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_despesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `fundo_ocasional`
 --
 ALTER TABLE `fundo_ocasional`
-  MODIFY `id_fundo_ocasional` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fundo_ocasional` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `investimento`
 --
 ALTER TABLE `investimento`
-  MODIFY `id_investimento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_investimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `rendimento`
 --
 ALTER TABLE `rendimento`
-  MODIFY `id_rendimento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rendimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
