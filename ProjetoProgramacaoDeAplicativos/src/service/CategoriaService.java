@@ -23,6 +23,21 @@ public class CategoriaService {
 		
 	}
 	
+	public Categoria buscarPorId(int idCategoria) throws SQLException, IOException {
+		
+		Connection conn = BancoDados.conectar();
+		Categoria categoria = new CategoriaDAO(conn).buscarPorId(idCategoria);
+		return categoria;
+		
+	}
+	
+	public Categoria buscarPorNome(String nome) throws SQLException, IOException {
+		
+		Connection conn = BancoDados.conectar();
+		Categoria categoria = new CategoriaDAO(conn).buscarPorNome(nome);
+		return categoria;
+	}
+	
 	public void cadastrar(Categoria categoria) throws SQLException, IOException {
 		
 		Connection conn = BancoDados.conectar();

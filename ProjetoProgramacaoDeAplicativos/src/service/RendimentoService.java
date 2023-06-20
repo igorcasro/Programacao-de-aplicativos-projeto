@@ -24,6 +24,14 @@ public class RendimentoService {
 		
 	}
 	
+	public Rendimento buscarPorId(int idRendimento) throws SQLException, IOException {
+		
+		Connection conn = BancoDados.conectar();
+		Rendimento rendimento = new RendimentoDAO(conn).buscarPorId(idRendimento);
+		return rendimento;
+		
+	}
+	
 	public void cadastrar(Rendimento rendimento) throws SQLException, IOException, ParseException {
 		
 		Connection conn = BancoDados.conectar();

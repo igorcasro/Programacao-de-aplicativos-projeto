@@ -108,4 +108,70 @@ public class CategoriaDAO {
 			BancoDados.desconectar();
 		}
 	}
+	
+	public Categoria buscarPorId(int id) throws SQLException {
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			st = conn.prepareStatement("select * from categoria where id_categoria = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				Categoria categoria = new Categoria();
+				
+				categoria.setIdCategoria(rs.getInt("id_categoria"));
+				categoria.setNomeCategoria(rs.getString("nome"));
+				
+				return categoria;
+			}
+
+			return null;
+
+		} finally {
+
+			BancoDados.finalizarStatement(st);
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.desconectar();
+		}
+	}
+	
+	public Categoria buscarPorNome(String nome) throws SQLException {
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			st = conn.prepareStatement("select * from categoria where nome = ?");
+
+			st.setString(1, nome);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				Categoria categoria = new Categoria();
+				
+				categoria.setIdCategoria(rs.getInt("id_categoria"));
+				categoria.setNomeCategoria(rs.getString("nome"));
+				
+				return categoria;
+			}
+
+			return null;
+
+		} finally {
+
+			BancoDados.finalizarStatement(st);
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.desconectar();
+		}
+	}
 }

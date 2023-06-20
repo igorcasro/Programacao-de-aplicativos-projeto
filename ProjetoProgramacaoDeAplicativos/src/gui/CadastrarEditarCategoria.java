@@ -21,9 +21,9 @@ import service.CategoriaService;
 public class CadastrarEditarCategoria extends JFrame {
 
 	private JPanel contentPane;
-	private String titulo;
 	private JTextField textFieldNome;
 
+	private String titulo;
 	private CategoriaService categoriaService;
 	private Categoria categoria;
 
@@ -31,6 +31,7 @@ public class CadastrarEditarCategoria extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastrarEditarCategoria(String titulo, Categoria categoria) {
+		
 		this.titulo = titulo;
 		setTitle(titulo);
 		

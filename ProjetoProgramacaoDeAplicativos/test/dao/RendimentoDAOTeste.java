@@ -19,7 +19,7 @@ public class RendimentoDAOTeste {
     	categoria.setNomeCategoria("Categoria Teste");
     	
         Rendimento rendimento = new Rendimento();
-        rendimento.setCategoriaRendimento(categoria);
+        rendimento.setIdCategoriaRendimento(categoria.getIdCategoria());
         rendimento.setNomeRendimento("Rendimento Teste");
         rendimento.setFrequenciaRendimento(Frequencia.Mensal);
         rendimento.setValorRendimento(1000.00);
@@ -39,7 +39,7 @@ public class RendimentoDAOTeste {
     	
         Rendimento rendimento = new Rendimento();
         rendimento.setIdRendimento(1);
-        rendimento.setCategoriaRendimento(categoria);
+        rendimento.setIdCategoriaRendimento(categoria.getIdCategoria());
         rendimento.setNomeRendimento("Rendimento Atualizado");
         rendimento.setFrequenciaRendimento(Frequencia.Ocasional);
         rendimento.setValorRendimento(1500.00);
@@ -59,7 +59,7 @@ public class RendimentoDAOTeste {
         for (Rendimento rendimento : listaRendimentos) {
             System.out.println(
                 rendimento.getIdRendimento() + " - " +
-                rendimento.getCategoriaRendimento().getIdCategoria() + " - " +
+                rendimento.getIdCategoriaRendimento() + " - " +
                 rendimento.getNomeRendimento() + " - " +
                 rendimento.getFrequenciaRendimento() + " - " +
                 rendimento.getValorRendimento() + " - " +

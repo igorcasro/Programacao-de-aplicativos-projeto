@@ -27,9 +27,7 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return "Categoria [nomeCategoria=" + nomeCategoria + ", idCategoria=" + idCategoria + "]";
+		return getNomeCategoria();
 	}
-	
-	
-	
+
 }

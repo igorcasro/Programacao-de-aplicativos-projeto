@@ -30,7 +30,7 @@ public class RendimentoDAO {
             st = conn.prepareStatement("INSERT INTO rendimento (nome, codigo_categoria, frequencia, valor, data) VALUES (?, ?, ?, ?, ?)");
             
             st.setString(1, rendimento.getNomeRendimento());
-            st.setInt(2, rendimento.getCategoriaRendimento().getIdCategoria());
+            st.setInt(2, rendimento.getIdCategoriaRendimento());
             st.setInt(3, rendimento.getFrequenciaRendimento().ordinal());
             st.setDouble(4, rendimento.getValorRendimento());
             
@@ -53,7 +53,7 @@ public class RendimentoDAO {
             st = conn.prepareStatement("UPDATE rendimento SET nome = ?, codigo_categoria = ?, frequencia = ?, valor = ?, data = ? WHERE id_rendimento = ?");
             
             st.setString(1, rendimento.getNomeRendimento());
-            st.setInt(2, rendimento.getCategoriaRendimento().getIdCategoria());
+            st.setInt(2, rendimento.getIdCategoriaRendimento());
             st.setInt(3, rendimento.getFrequenciaRendimento().ordinal());
             st.setDouble(4, rendimento.getValorRendimento());
             
@@ -103,9 +103,7 @@ public class RendimentoDAO {
                 rendimento.setNomeRendimento(rs.getString("nome"));
                 
                 int idCategoria = rs.getInt("codigo_categoria");
-                Categoria categoriaRendimento = new Categoria();
-                categoriaRendimento.setIdCategoria(idCategoria);
-                rendimento.setCategoriaRendimento(categoriaRendimento);
+                rendimento.setIdCategoriaRendimento(idCategoria);
                 
                 rendimento.setFrequenciaRendimento(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
                 rendimento.setValorRendimento(rs.getDouble("valor"));
@@ -121,4 +119,44 @@ public class RendimentoDAO {
             BancoDados.desconectar();
         }
     }
+    
+    public Rendimento buscarPorId(int id) throws SQLException {
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			st = conn.prepareStatement("select * from rendimento where id_rendimento = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				Rendimento rendimento = new Rendimento();
+				
+				rendimento.setIdRendimento(rs.getInt("id_rendimento"));
+                rendimento.setNomeRendimento(rs.getString("nome"));
+                
+                int idCategoria = rs.getInt("codigo_categoria");
+                rendimento.setIdCategoriaRendimento(idCategoria);
+                
+                rendimento.setFrequenciaRendimento(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+                rendimento.setValorRendimento(rs.getDouble("valor"));
+                rendimento.setData(rs.getTimestamp("data").toString());
+				
+				return rendimento;
+			}
+
+			return null;
+
+		} finally {
+
+			BancoDados.finalizarStatement(st);
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.desconectar();
+		}
+	}
 }

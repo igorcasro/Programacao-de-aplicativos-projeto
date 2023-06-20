@@ -4,7 +4,7 @@ import enums.Frequencia;
 
 public class Rendimento {
 
-	private Categoria categoriaRendimento;
+	private int idCategoriaRendimento;
 	private String nomeRendimento;
 	private Frequencia frequenciaRendimento;
 	private double valorRendimento;
@@ -15,12 +15,12 @@ public class Rendimento {
 		
 	}
 
-	public Categoria getCategoriaRendimento() {
-		return categoriaRendimento;
+	public int getIdCategoriaRendimento() {
+		return idCategoriaRendimento;
 	}
 
-	public void setCategoriaRendimento(Categoria categoriaRendimento) {
-		this.categoriaRendimento = categoriaRendimento;
+	public void setIdCategoriaRendimento(int idCategoriaRendimento) {
+		this.idCategoriaRendimento = idCategoriaRendimento;
 	}
 
 	public String getNomeRendimento() {
@@ -62,5 +62,14 @@ public class Rendimento {
 	public void setIdRendimento(int idRendimento) {
 		this.idRendimento = idRendimento;
 	}
+
+	@Override
+	public String toString() {
+		return "Rendimento [categoriaRendimento=" + idCategoriaRendimento + ", nomeRendimento=" + nomeRendimento
+				+ ", frequenciaRendimento=" + frequenciaRendimento + ", valorRendimento=" + valorRendimento + ", data="
+				+ data + ", idRendimento=" + idRendimento + "]";
+	}
+	
+	
 	
 }
