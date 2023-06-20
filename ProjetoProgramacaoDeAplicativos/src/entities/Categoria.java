@@ -24,5 +24,12 @@ public class Categoria {
 	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
+
+	@Override
+	public String toString() {
+		return "Categoria [nomeCategoria=" + nomeCategoria + ", idCategoria=" + idCategoria + "]";
+	}
+	
+	
 	
 }

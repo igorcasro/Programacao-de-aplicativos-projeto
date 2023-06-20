@@ -1,23 +1,23 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class ModuloDeDespesas extends JFrame {
 
 	private JPanel contentPaneModuloDeDespesas;
-	private JButton btnCadastrarNovaCategoria;
-	private JButton btnEditarCategoria;
-	private JButton btnExcluirCategoria;
-	private JButton btnCadastrarNovaDespesa;
-	private JButton btnEditarDespesa;
-	private JButton btnExcluirDespesa;
+	private JButton btnCategorias;
+	private JButton btnDespesas;
+	private JLabel lblDespesas;
 
 	/**
 	 * Create the frame.
@@ -33,35 +33,43 @@ public class ModuloDeDespesas extends JFrame {
 		setContentPane(contentPaneModuloDeDespesas);
 		contentPaneModuloDeDespesas.setLayout(null);
 		
-		btnCadastrarNovaCategoria = new JButton("Cadastrar Nova Categoria");
-		btnCadastrarNovaCategoria.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnCadastrarNovaCategoria.setBounds(102, 39, 578, 42);
-		contentPaneModuloDeDespesas.add(btnCadastrarNovaCategoria);
+		btnCategorias = new JButton("Categorias");
+		btnCategorias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				btnCategoriasActionPerformed();
+			}
+		});
+		btnCategorias.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCategorias.setBounds(102, 143, 578, 42);
+		contentPaneModuloDeDespesas.add(btnCategorias);
 		
-		btnEditarCategoria = new JButton("Editar Categoria");
-		btnEditarCategoria.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEditarCategoria.setBounds(102, 91, 578, 42);
-		contentPaneModuloDeDespesas.add(btnEditarCategoria);
+		btnDespesas = new JButton("Despesas");
+		btnDespesas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				btnDespesasActionPerformed();
+			}
+		});
+		btnDespesas.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnDespesas.setBounds(102, 195, 578, 42);
+		contentPaneModuloDeDespesas.add(btnDespesas);
 		
-		btnExcluirCategoria = new JButton("Excluir Categoria");
-		btnExcluirCategoria.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnExcluirCategoria.setBounds(102, 143, 578, 42);
-		contentPaneModuloDeDespesas.add(btnExcluirCategoria);
-		
-		btnCadastrarNovaDespesa = new JButton("Cadastrar Nova Despesa");
-		btnCadastrarNovaDespesa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnCadastrarNovaDespesa.setBounds(102, 195, 578, 42);
-		contentPaneModuloDeDespesas.add(btnCadastrarNovaDespesa);
-		
-		btnEditarDespesa = new JButton("Editar Despesa");
-		btnEditarDespesa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEditarDespesa.setBounds(102, 247, 578, 42);
-		contentPaneModuloDeDespesas.add(btnEditarDespesa);
-		
-		btnExcluirDespesa = new JButton("Excluir Despesa");
-		btnExcluirDespesa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnExcluirDespesa.setBounds(102, 299, 578, 42);
-		contentPaneModuloDeDespesas.add(btnExcluirDespesa);
+		lblDespesas = new JLabel("Despesas");
+		lblDespesas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDespesas.setForeground(Color.WHITE);
+		lblDespesas.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblDespesas.setBounds(10, 10, 715, 42);
+		contentPaneModuloDeDespesas.add(lblDespesas);
 	}
 
+	private void btnCategoriasActionPerformed() {
+		
+		new TelaCategorias().setVisible(true);
+	}
+	
+	private void btnDespesasActionPerformed() {
+		
+		new TelaDespesas().setVisible(true);
+	}
 }

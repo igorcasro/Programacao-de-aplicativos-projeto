@@ -8,6 +8,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class ModuloInvestimentoALongoPrazo extends JFrame {
 
@@ -15,6 +22,9 @@ public class ModuloInvestimentoALongoPrazo extends JFrame {
 	private JButton btnCadastrarNovoInvestimento;
 	private JButton btnEditarInvestimento;
 	private JButton btnExcluirInvestimento;
+	private JLabel lblInvestimentoALongo;
+	private JTable table;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the frame.
@@ -32,18 +42,44 @@ public class ModuloInvestimentoALongoPrazo extends JFrame {
 		
 		btnCadastrarNovoInvestimento = new JButton("Cadastrar Novo Investimento");
 		btnCadastrarNovoInvestimento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnCadastrarNovoInvestimento.setBounds(102, 91, 578, 42);
+		btnCadastrarNovoInvestimento.setBounds(10, 344, 269, 42);
 		contentPaneModuloInvestimentoALongoPrazo.add(btnCadastrarNovoInvestimento);
 		
 		btnEditarInvestimento = new JButton("Editar Investimento");
 		btnEditarInvestimento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEditarInvestimento.setBounds(102, 143, 578, 42);
+		btnEditarInvestimento.setBounds(289, 344, 208, 42);
 		contentPaneModuloInvestimentoALongoPrazo.add(btnEditarInvestimento);
 		
 		btnExcluirInvestimento = new JButton("Excluir Investimento");
 		btnExcluirInvestimento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnExcluirInvestimento.setBounds(102, 195, 578, 42);
+		btnExcluirInvestimento.setBounds(507, 344, 218, 42);
 		contentPaneModuloInvestimentoALongoPrazo.add(btnExcluirInvestimento);
+		
+		lblInvestimentoALongo = new JLabel("Investimento a Longo Prazo");
+		lblInvestimentoALongo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInvestimentoALongo.setForeground(Color.WHITE);
+		lblInvestimentoALongo.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblInvestimentoALongo.setBounds(10, 10, 715, 42);
+		contentPaneModuloInvestimentoALongoPrazo.add(lblInvestimentoALongo);
+		
+		JPanel panelInvestimentos = new JPanel();
+		panelInvestimentos.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Investimento a Longo Prazo", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelInvestimentos.setBounds(10, 62, 715, 272);
+		contentPaneModuloInvestimentoALongoPrazo.add(panelInvestimentos);
+		panelInvestimentos.setLayout(null);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 22, 695, 240);
+		panelInvestimentos.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Investimento", "Mensal", "Ocasional", "Total Anual"
+			}
+		));
 	}
-
 }
