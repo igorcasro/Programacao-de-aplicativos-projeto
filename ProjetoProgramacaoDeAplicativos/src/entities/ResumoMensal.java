@@ -1,46 +1,59 @@
 package entities;
 
+import enums.Meses;
+
 public class ResumoMensal {
 
-	private Rendimento rendimentoMensal;
-	private Investimento investimentoMensal;
-	private FundoOcasional fundoOcasional;
+	private Meses mes;
+	private String ano;
+	private double rendimentoMensal;
+	private double investimentoMensal;
+	private double fundoOcasional;
 	private double totalDisponivelDespesas;
-	private Despesa despesaMensal;
+	private double despesaMensal;
 	private double totalFinal;
 	
-	public ResumoMensal(Rendimento rendimentoMensal, Investimento investimentoMensal, FundoOcasional fundoOcasional, Despesa despesaMensal) {
-		
-		this.rendimentoMensal = rendimentoMensal;
-		this.investimentoMensal = investimentoMensal;
-		this.fundoOcasional = fundoOcasional;
-		this.despesaMensal = despesaMensal;
-		
-		this.totalDisponivelDespesas = 0;
-		this.totalFinal = 0;
+	public ResumoMensal() {
+
+	}	
+
+	public Meses getMes() {
+		return mes;
 	}
 
-	public Rendimento getRendimentoMensal() {
+	public void setMes(Meses mes) {
+		this.mes = mes;
+	}
+
+	public String getAno() {
+		return ano;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+
+	public double getRendimentoMensal() {
 		return rendimentoMensal;
 	}
 
-	public void setRendimentoMensal(Rendimento rendimentoMensal) {
+	public void setRendimentoMensal(double rendimentoMensal) {
 		this.rendimentoMensal = rendimentoMensal;
 	}
 
-	public Investimento getInvestimentoMensal() {
+	public double getInvestimentoMensal() {
 		return investimentoMensal;
 	}
 
-	public void setInvestimentoMensal(Investimento investimentoMensal) {
+	public void setInvestimentoMensal(double investimentoMensal) {
 		this.investimentoMensal = investimentoMensal;
 	}
 
-	public FundoOcasional getFundoOcasional() {
+	public double getFundoOcasional() {
 		return fundoOcasional;
 	}
 
-	public void setFundoOcasional(FundoOcasional fundoOcasional) {
+	public void setFundoOcasional(double fundoOcasional) {
 		this.fundoOcasional = fundoOcasional;
 	}
 
@@ -52,14 +65,14 @@ public class ResumoMensal {
 		this.totalDisponivelDespesas = totalDisponivelDespesas;
 	}
 
-	public Despesa getDespesaMensal() {
+	public double getDespesaMensal() {
 		return despesaMensal;
 	}
 
-	public void setDespesaMensal(Despesa despesaMensal) {
+	public void setDespesaMensal(double despesaMensal) {
 		this.despesaMensal = despesaMensal;
 	}
-	
+
 	public double getTotalFinal() {
 		return totalFinal;
 	}
@@ -70,16 +83,17 @@ public class ResumoMensal {
 
 	public void calculoTotalDisponivelDespesasMes() {
 		
-		double totalDespesasDisponivel = this.rendimentoMensal.getValorRendimento() - this.investimentoMensal.getValorInvestimento() - this.fundoOcasional.getValorFundoOcasional();
+		double totalDespesasDisponivel = this.rendimentoMensal - this.investimentoMensal - this.fundoOcasional;
 		
 		setTotalDisponivelDespesas(totalDespesasDisponivel);
 	}
 	
 	public void calculoTotalDisponivelMes() {
 		
-		double totalDisponivel = this.totalDisponivelDespesas - this.despesaMensal.getValorDespesa();
+		double totalDisponivel = this.totalDisponivelDespesas - this.despesaMensal;
 		
 		setTotalFinal(totalDisponivel);
 		
 	}
+
 }

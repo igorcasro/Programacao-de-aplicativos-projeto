@@ -106,7 +106,7 @@ private Connection conn;
 
 		try {
 
-			st = conn.prepareStatement("SELECT * FROM despesa ORDER BY nome");
+			st = conn.prepareStatement("SELECT * FROM despesa ORDER BY id_despesa");
 
 			rs = st.executeQuery();
 

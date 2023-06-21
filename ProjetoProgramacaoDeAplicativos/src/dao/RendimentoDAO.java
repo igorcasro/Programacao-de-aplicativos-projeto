@@ -91,7 +91,7 @@ public class RendimentoDAO {
         ResultSet rs = null;
         
         try {
-            st = conn.prepareStatement("SELECT * FROM rendimento ORDER BY nome");
+            st = conn.prepareStatement("SELECT * FROM rendimento ORDER BY id_rendimento");
             rs = st.executeQuery();
             
             List<Rendimento> listaRendimentos = new ArrayList<>();

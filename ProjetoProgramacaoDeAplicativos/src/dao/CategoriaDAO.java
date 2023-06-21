@@ -83,7 +83,7 @@ public class CategoriaDAO {
 
 		try {
 
-			st = conn.prepareStatement("select * from categoria order by nome");
+			st = conn.prepareStatement("select * from categoria order by id_categoria");
 
 			rs = st.executeQuery();
 

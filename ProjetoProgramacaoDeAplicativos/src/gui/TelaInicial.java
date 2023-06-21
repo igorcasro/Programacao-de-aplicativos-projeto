@@ -114,6 +114,7 @@ public class TelaInicial extends JFrame {
 		contentPaneTelaInicial.add(btnModuloResumo);
 		
 		btnModuloRelatorio = new JButton("Módulo Relatório");
+		btnModuloRelatorio.setEnabled(false);
 		btnModuloRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			

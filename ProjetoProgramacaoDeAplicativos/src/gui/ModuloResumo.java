@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ModuloResumo extends JFrame {
 
@@ -30,14 +32,35 @@ public class ModuloResumo extends JFrame {
 		contentPaneModuloResumo.setLayout(null);
 		
 		btnResumoMensal = new JButton("Resumo Mensal");
+		btnResumoMensal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				btnResumoMensalActionPerformed();
+			}
+		});
 		btnResumoMensal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnResumoMensal.setBounds(102, 139, 578, 42);
 		contentPaneModuloResumo.add(btnResumoMensal);
 		
 		btnResumoAnual = new JButton("Resumo Anual");
+		btnResumoAnual.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				btnResumoAnualActionPerformed();
+			}
+		});
 		btnResumoAnual.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnResumoAnual.setBounds(102, 191, 578, 42);
 		contentPaneModuloResumo.add(btnResumoAnual);
 	}
 
+	private void btnResumoMensalActionPerformed() {
+		
+		new SelecionarAnoMesResumo().setVisible(true);
+	}
+	
+	private void btnResumoAnualActionPerformed() {
+		
+		new SelecionarAnoResumo().setVisible(true);
+	}
 }

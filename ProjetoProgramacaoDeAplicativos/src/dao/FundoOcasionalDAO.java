@@ -88,7 +88,7 @@ public class FundoOcasionalDAO {
 		ResultSet rs = null;
 
 		try {
-			st = conn.prepareStatement("SELECT * FROM fundo_ocasional");
+			st = conn.prepareStatement("SELECT * FROM fundo_ocasional order by id_fundo_ocasional");
 
 			rs = st.executeQuery();
 

@@ -104,7 +104,7 @@ public class InvestimentoDAO {
 
         try {
 
-            st = conn.prepareStatement("SELECT * FROM investimento");
+            st = conn.prepareStatement("SELECT * FROM investimento order by id_investimento");
 
             rs = st.executeQuery();
 
