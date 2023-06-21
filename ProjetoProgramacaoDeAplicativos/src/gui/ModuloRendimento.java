@@ -17,7 +17,7 @@ public class ModuloRendimento extends JFrame {
 
 	private JPanel contentPaneModuloRendimento;
 	private JButton btnCategorias;
-	private JButton btnCadastrarNovoRendimento;
+	private JButton btnRendimentos;
 	private JLabel lblRendimento;
 
 	/**
@@ -45,16 +45,16 @@ public class ModuloRendimento extends JFrame {
 		btnCategorias.setBounds(102, 143, 578, 42);
 		contentPaneModuloRendimento.add(btnCategorias);
 		
-		btnCadastrarNovoRendimento = new JButton("Rendimentos");
-		btnCadastrarNovoRendimento.addActionListener(new ActionListener() {
+		btnRendimentos = new JButton("Rendimentos");
+		btnRendimentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				btnCadastrarNovoRendimentoActionPerformed();
+				btnRendimentosActionPerformed();
 			}
 		});
-		btnCadastrarNovoRendimento.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnCadastrarNovoRendimento.setBounds(102, 195, 578, 42);
-		contentPaneModuloRendimento.add(btnCadastrarNovoRendimento);
+		btnRendimentos.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnRendimentos.setBounds(102, 195, 578, 42);
+		contentPaneModuloRendimento.add(btnRendimentos);
 		
 		lblRendimento = new JLabel("Rendimento");
 		lblRendimento.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,7 +69,7 @@ public class ModuloRendimento extends JFrame {
 		new TelaCategorias().setVisible(true);
 	}
 	
-	private void btnCadastrarNovoRendimentoActionPerformed() {
+	private void btnRendimentosActionPerformed() {
 		
 		new TelaRendimentos().setVisible(true);
 	}

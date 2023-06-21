@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,6 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,12 +25,15 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
 import entities.Categoria;
-import entities.Rendimento;
+import entities.Despesa;
 import enums.Frequencia;
 import service.CategoriaService;
+import service.DespesaService;
 import service.RendimentoService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class CadastrarEditarRendimento extends JFrame {
+public class CadastrarEditarDespesa extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNome;
@@ -51,26 +53,24 @@ public class CadastrarEditarRendimento extends JFrame {
 	
 	private String titulo;
 	private CategoriaService categoriaService;
-	private RendimentoService rendimentoService;
-	private Rendimento rendimento;
+	private DespesaService despesaService;
+	private Despesa despesa;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
-
 	/**
 	 * Create the frame.
 	 */
-	public CadastrarEditarRendimento(String titulo, Rendimento rendimento) {
-		
+	public CadastrarEditarDespesa(String titulo, Despesa despesa) {
 		this.titulo = titulo;
 		setTitle(titulo);
 		
-		this.rendimento = rendimento;
+		this.despesa = despesa;
 		
 		this.criarMascaraData();
 		this.initComponents();
 		
 		this.categoriaService = new CategoriaService();
-		this.rendimentoService = new RendimentoService();
+		this.despesaService = new DespesaService();
 		
 		this.buscarCategorias();
 	}
@@ -120,32 +120,32 @@ public class CadastrarEditarRendimento extends JFrame {
 		contentPane.setLayout(null);
 		
 		lblCategoria = new JLabel("Categoria:");
-		lblCategoria.setForeground(new Color(255, 255, 255));
+		lblCategoria.setForeground(Color.WHITE);
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCategoria.setBounds(10, 12, 83, 25);
+		lblCategoria.setBounds(10, 10, 83, 25);
 		contentPane.add(lblCategoria);
 		
 		cbCategorias = new JComboBox();
-		cbCategorias.setBounds(103, 12, 198, 25);
+		cbCategorias.setBounds(103, 10, 198, 25);
 		contentPane.add(cbCategorias);
 		
 		lblNome = new JLabel("Nome:");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNome.setBounds(10, 47, 83, 25);
+		lblNome.setBounds(10, 45, 83, 25);
 		contentPane.add(lblNome);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setText(titulo.equals("Cadastrar Novo Rendimento") ? "" : rendimento.getNomeRendimento());
-		textFieldNome.setBounds(103, 47, 198, 25);
-		contentPane.add(textFieldNome);
+		textFieldNome.setText(titulo.equals("Cadastrar Nova Despesa") ? "" : despesa.getNomeDespesa());
 		textFieldNome.setColumns(10);
+		textFieldNome.setBounds(103, 45, 198, 25);
+		contentPane.add(textFieldNome);
 		
 		panelFrequencia = new JPanel();
-		panelFrequencia.setBorder(new TitledBorder(null, "Frequ\u00EAncia", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelFrequencia.setBounds(10, 82, 291, 57);
-		contentPane.add(panelFrequencia);
 		panelFrequencia.setLayout(null);
+		panelFrequencia.setBorder(new TitledBorder(null, "Frequ\u00EAncia", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelFrequencia.setBounds(10, 80, 291, 57);
+		contentPane.add(panelFrequencia);
 		
 		rdbtnMensal = new JRadioButton("Mensal");
 		buttonGroup.add(rdbtnMensal);
@@ -157,38 +157,38 @@ public class CadastrarEditarRendimento extends JFrame {
 		rdbtnOcasional.setBounds(165, 22, 103, 21);
 		panelFrequencia.add(rdbtnOcasional);
 		
-		if(!titulo.equals("Cadastrar Novo Rendimento")) {
+		if(!titulo.equals("Cadastrar Nova Despesa")) {
 			this.selecionaBotao(); 
 		}	
 		
 		lblValor = new JLabel("Valor:");
 		lblValor.setForeground(Color.WHITE);
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblValor.setBounds(10, 149, 83, 25);
+		lblValor.setBounds(10, 147, 83, 25);
 		contentPane.add(lblValor);
 		
 		textFieldValor = new JTextField();
-		textFieldValor.setText(titulo.equals("Cadastrar Novo Rendimento") ? "0.00" : String.valueOf(rendimento.getValorRendimento()));
-		textFieldValor.setBounds(103, 149, 198, 25);
-		contentPane.add(textFieldValor);
+		textFieldValor.setText(titulo.equals("Cadastrar Nova Despesa") ? "0.00" : String.valueOf(despesa.getValorDespesa()));
 		textFieldValor.setColumns(10);
+		textFieldValor.setBounds(103, 147, 198, 25);
+		contentPane.add(textFieldValor);
 		
-		btnCadastrarEditar = new JButton("New button");
+		btnCadastrarEditar = new JButton("Editar");
 		btnCadastrarEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 				btnCadastrarEditarActionPerformed();
 			}
 		});
-		btnCadastrarEditar.setText(titulo.equals("Cadastrar Novo Rendimento") ? "Cadastrar" : "Editar");
+		btnCadastrarEditar.setText(titulo.equals("Cadastrar Nova Despesa") ? "Cadastrar" : "Editar");
 		btnCadastrarEditar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnCadastrarEditar.setBounds(165, 219, 136, 30);
+		btnCadastrarEditar.setBounds(165, 217, 136, 30);
 		contentPane.add(btnCadastrarEditar);
 		
 		lblData = new JLabel("Data:");
 		lblData.setForeground(Color.WHITE);
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblData.setBounds(10, 184, 83, 25);
+		lblData.setBounds(10, 182, 83, 25);
 		contentPane.add(lblData);
 		
 		Date dataHoraAtual = new Date();
@@ -197,12 +197,12 @@ public class CadastrarEditarRendimento extends JFrame {
 		
 		formattedTextField = new JFormattedTextField(mascaraData);
 		formattedTextField.setText(data + " " + hora);
-		formattedTextField.setBounds(103, 184, 198, 25);
+		formattedTextField.setBounds(103, 182, 198, 25);
 		contentPane.add(formattedTextField);
 	}
-	
+
 	private void selecionaBotao() {
-		if (rendimento.getFrequenciaRendimento() == Frequencia.Mensal) {
+		if (despesa.getFrequenciaDespesa() == Frequencia.Mensal) {
 			rdbtnMensal.setSelected(true);
 			rdbtnOcasional.setSelected(false);
 		} else {
@@ -213,36 +213,35 @@ public class CadastrarEditarRendimento extends JFrame {
 	
 	private void btnCadastrarEditarActionPerformed() {
 		
-		if( titulo.equals("Cadastrar Novo Rendimento")) {
+		if( titulo.equals("Cadastrar Nova Despesa")) {
 			this.cadastrar();
 		} else {
 			this.editar();
-		}
-		
+		}	
 	}
 	
 	private void cadastrar() {
 		
 		Categoria categoriaSelecionada = (Categoria) cbCategorias.getSelectedItem();
 		
-		rendimento.setIdCategoriaRendimento(categoriaSelecionada.getIdCategoria());
-		rendimento.setNomeRendimento(this.textFieldNome.getText());
-		rendimento.setFrequenciaRendimento(verificarSelecaoRadioButtonFrequencia());
-		rendimento.setValorRendimento(Double.parseDouble(textFieldValor.getText()));
-		rendimento.setData(this.formattedTextField.getText());
+		despesa.setIdCategoriaDespesa(categoriaSelecionada.getIdCategoria());
+		despesa.setNomeDespesa(this.textFieldNome.getText());
+		despesa.setFrequenciaDespesa(verificarSelecaoRadioButtonFrequencia());
+		despesa.setValorDespesa(Double.parseDouble(textFieldValor.getText()));
+		despesa.setData(this.formattedTextField.getText());
 		
 		try {
-			rendimentoService.cadastrar(rendimento);
+			despesaService.cadastrar(despesa);
 			
-			JOptionPane.showMessageDialog(null, "Sucesso ao cadastrar rendimento", "Cadastro de Rendimento", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Sucesso ao cadastrar despesa", "Cadastro de Despesa", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException | IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao cadastrar rendimento", "Cadastro de Rendimento", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar despesa", "Cadastro de Despesa", JOptionPane.ERROR_MESSAGE);
 		} finally {	
 			
 			this.dispose();
-			new TelaRendimentos().setVisible(true);
+			new TelaDespesas().setVisible(true);
 		}
 		
 	}
@@ -251,24 +250,24 @@ public class CadastrarEditarRendimento extends JFrame {
 		
 		Categoria categoriaSelecionada = (Categoria) cbCategorias.getSelectedItem();
 		
-		rendimento.setIdCategoriaRendimento(categoriaSelecionada.getIdCategoria());
-		rendimento.setNomeRendimento(this.textFieldNome.getText());
-		rendimento.setFrequenciaRendimento(verificarSelecaoRadioButtonFrequencia());
-		rendimento.setValorRendimento(Double.parseDouble(textFieldValor.getText()));
-		rendimento.setData(this.formattedTextField.getText());
+		despesa.setIdCategoriaDespesa(categoriaSelecionada.getIdCategoria());
+		despesa.setNomeDespesa(this.textFieldNome.getText());
+		despesa.setFrequenciaDespesa(verificarSelecaoRadioButtonFrequencia());
+		despesa.setValorDespesa(Double.parseDouble(textFieldValor.getText()));
+		despesa.setData(this.formattedTextField.getText());
 		
 		try {
-			rendimentoService.atualizar(rendimento);
+			despesaService.atualizar(despesa);
 			
-			JOptionPane.showMessageDialog(null, "Sucesso ao editar rendimento", "Editar Rendimento", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Sucesso ao editar despesa", "Editar Despesa", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException | IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao editar rendimento", "Editar Rendimento", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Erro ao editar despesa", "Editar Despesa", JOptionPane.ERROR_MESSAGE);
 		} finally {	
 			
 			this.dispose();
-			new TelaRendimentos().setVisible(true);
+			new TelaDespesas().setVisible(true);
 		}
 	}
 	
@@ -280,4 +279,5 @@ public class CadastrarEditarRendimento extends JFrame {
 			return Frequencia.Ocasional;
 		}
 	}
+	
 }

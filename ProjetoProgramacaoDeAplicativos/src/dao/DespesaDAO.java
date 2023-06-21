@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import entities.Categoria;
 import entities.Despesa;
 import enums.Frequencia;
 
@@ -36,7 +35,7 @@ private Connection conn;
 	        Timestamp dataTimestamp = new Timestamp(data.getTime());
 			
 			st.setString(1, despesa.getNomeDespesa());
-			st.setInt(2, despesa.getCategoriaDespesa().getIdCategoria());
+			st.setInt(2, despesa.getIdCategoriaDespesa());
 			st.setTimestamp(3, dataTimestamp);
 			st.setInt(4, despesa.getFrequenciaDespesa().ordinal());
 			st.setDouble(5, despesa.getValorDespesa());
@@ -64,7 +63,7 @@ private Connection conn;
 	        Timestamp dataTimestamp = new Timestamp(data.getTime());
 			
 			st.setString(1, despesa.getNomeDespesa());
-			st.setInt(2, despesa.getCategoriaDespesa().getIdCategoria());
+			st.setInt(2, despesa.getIdCategoriaDespesa());
 			st.setTimestamp(3, dataTimestamp);
 			st.setInt(4, despesa.getFrequenciaDespesa().ordinal());
 			st.setDouble(5, despesa.getValorDespesa());
@@ -107,25 +106,24 @@ private Connection conn;
 
 		try {
 
-			st = conn.prepareStatement("select * from despesa order by nome");
+			st = conn.prepareStatement("SELECT * FROM despesa ORDER BY nome");
 
 			rs = st.executeQuery();
 
 			List<Despesa> listaDespesas = new ArrayList<>();
 
 			while (rs.next()) {
-
 				Despesa despesa = new Despesa();
 
-				despesa.setNomeDespesa(rs.getString("nome"));
-				int idCategoria = rs.getInt("codigo_categoria");
-				Categoria categoriaDespesa = new Categoria();
-				categoriaDespesa.setIdCategoria(idCategoria);
-				despesa.setCategoriaDespesa(categoriaDespesa);
-				despesa.setData(rs.getTimestamp("data").toString());
-				despesa.setFrequenciaDespesa(Frequencia.values()[rs.getInt("frequencia")]);
-				despesa.setValorDespesa(rs.getDouble("valor"));
 				despesa.setIdDespesa(rs.getInt("id_despesa"));
+				despesa.setNomeDespesa(rs.getString("nome"));
+				
+				int idCategoria = rs.getInt("codigo_categoria");
+				despesa.setIdCategoriaDespesa(idCategoria);
+				
+				despesa.setFrequenciaDespesa(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+				despesa.setValorDespesa(rs.getDouble("valor"));
+				despesa.setData(rs.getTimestamp("data").toString());
 				
 				listaDespesas.add(despesa);
 			}
@@ -139,4 +137,44 @@ private Connection conn;
 			BancoDados.desconectar();
 		}
 	}
+	
+	 public Despesa buscarPorId(int id) throws SQLException {
+
+			PreparedStatement st = null;
+			ResultSet rs = null;
+
+			try {
+
+				st = conn.prepareStatement("select * from despesa where id_despesa = ?");
+
+				st.setInt(1, id);
+
+				rs = st.executeQuery();
+
+				if (rs.next()) {
+
+					Despesa despesa = new Despesa();
+					
+					despesa.setIdDespesa(rs.getInt("id_despesa"));
+					despesa.setNomeDespesa(rs.getString("nome"));
+	                
+	                int idCategoria = rs.getInt("codigo_categoria");
+	                despesa.setIdCategoriaDespesa(idCategoria);
+	                
+	                despesa.setFrequenciaDespesa(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+	                despesa.setValorDespesa(rs.getDouble("valor"));
+	                despesa.setData(rs.getTimestamp("data").toString());
+					
+					return despesa;
+				}
+
+				return null;
+
+			} finally {
+
+				BancoDados.finalizarStatement(st);
+				BancoDados.finalizarResultSet(rs);
+				BancoDados.desconectar();
+			}
+		}
 }

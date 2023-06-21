@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.Despesa;
 import entities.Investimento;
 import enums.Frequencia;
 
@@ -128,5 +129,42 @@ public class InvestimentoDAO {
             BancoDados.finalizarResultSet(rs);
             BancoDados.desconectar();
         }
+    }
+    
+    public Investimento buscarPorId(int id) throws SQLException {
+    	
+    	PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			st = conn.prepareStatement("select * from investimento where id_investimento = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				Investimento investimento = new Investimento();
+				
+				investimento.setIdInvestimento(rs.getInt("id_investimento"));
+				investimento.setNomeInvestimento(rs.getString("nome"));
+                
+				investimento.setFrequenciaInvestimento(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+				investimento.setValorInvestimento(rs.getDouble("valor"));
+				investimento.setData(rs.getTimestamp("data").toString());
+				
+				return investimento;
+			}
+
+			return null;
+
+		} finally {
+
+			BancoDados.finalizarStatement(st);
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.desconectar();
+		}
     }
 }

@@ -4,7 +4,7 @@ import enums.Frequencia;
 
 public class Despesa {
 
-	private Categoria categoriaDespesa;
+	private int idCategoriaDespesa;
 	private String nomeDespesa;
 	private Frequencia frequenciaDespesa;
 	private double valorDespesa;
@@ -15,12 +15,12 @@ public class Despesa {
 
 	}
 
-	public Categoria getCategoriaDespesa() {
-		return categoriaDespesa;
+	public int getIdCategoriaDespesa() {
+		return idCategoriaDespesa;
 	}
 
-	public void setCategoriaDespesa(Categoria categoriaDespesa) {
-		this.categoriaDespesa = categoriaDespesa;
+	public void setIdCategoriaDespesa(int idCategoriaDespesa) {
+		this.idCategoriaDespesa = idCategoriaDespesa;
 	}
 
 	public String getNomeDespesa() {

@@ -24,6 +24,14 @@ public class DespesaService {
 		
 	}
 	
+	public Despesa buscarPorId(int idDespesa) throws SQLException, IOException {
+		
+		Connection conn = BancoDados.conectar();
+		Despesa despesa = new DespesaDAO(conn).buscarPorId(idDespesa);
+		return despesa;
+		
+	}
+	
 	public void cadastrar(Despesa despesa) throws SQLException, IOException, ParseException {
 		
 		Connection conn = BancoDados.conectar();

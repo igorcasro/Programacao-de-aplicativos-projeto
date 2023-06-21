@@ -115,4 +115,41 @@ public class FundoOcasionalDAO {
 			BancoDados.desconectar();
 		}
 	}
+	
+	public FundoOcasional buscarPorId(int id) throws SQLException {
+    	
+    	PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			st = conn.prepareStatement("select * from fundo_ocasional where id_fundo_ocasional = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				FundoOcasional fundoOcasional = new FundoOcasional();
+				
+				fundoOcasional.setIdFundoOcasional(rs.getInt("id_fundo_ocasional"));
+				fundoOcasional.setNomeFundoOcasional(rs.getString("nome"));
+                
+				fundoOcasional.setFrequenciaFundoOcasional(rs.getInt("frequencia") == 0 ? Frequencia.Mensal : Frequencia.Ocasional);
+				fundoOcasional.setValorFundoOcasional(rs.getDouble("valor"));
+				fundoOcasional.setData(rs.getTimestamp("data").toString());
+				
+				return fundoOcasional;
+			}
+
+			return null;
+
+		} finally {
+
+			BancoDados.finalizarStatement(st);
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.desconectar();
+		}
+    }
 }

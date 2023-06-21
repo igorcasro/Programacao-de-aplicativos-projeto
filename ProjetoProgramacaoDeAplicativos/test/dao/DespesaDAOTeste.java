@@ -19,7 +19,7 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException, Par
 	
 		Despesa despesa = new Despesa();
 		despesa.setNomeDespesa("Teste");
-		despesa.setCategoriaDespesa(categoria);
+		despesa.setIdCategoriaDespesa(categoria.getIdCategoria());
 		despesa.setData("2023-06-19 19:30:00");
 		despesa.setFrequenciaDespesa(Frequencia.Mensal);
 		despesa.setValorDespesa(1200.00);
@@ -37,7 +37,7 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException, Par
 		
 		Despesa despesa = new Despesa();
 		despesa.setNomeDespesa("Testeeeeeeeeeeeeeeeeeee");
-		despesa.setCategoriaDespesa(categoria);
+		despesa.setIdCategoriaDespesa(categoria.getIdCategoria());
 		despesa.setData("2023-06-19 19:35:00");
 		despesa.setFrequenciaDespesa(Frequencia.Ocasional);
 		despesa.setValorDespesa(1300.00);
@@ -58,7 +58,7 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException, Par
 		for (Despesa despesa : listaDespesas) {
 
 			System.out.println(despesa.getIdDespesa() + " - " + despesa.getNomeDespesa() + " - " +
-			despesa.getCategoriaDespesa().getIdCategoria() + " - " + despesa.getData() + " - " + despesa.getFrequenciaDespesa()
+			despesa.getIdCategoriaDespesa() + " - " + despesa.getData() + " - " + despesa.getFrequenciaDespesa()
 			+ " - " + despesa.getValorDespesa());
 		}
 	}

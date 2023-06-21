@@ -24,6 +24,14 @@ public class FundoOcasionalService {
 		
 	}
 	
+	public FundoOcasional buscarPorId(int idFundoOcasional) throws SQLException, IOException {
+		
+		Connection conn = BancoDados.conectar();
+		FundoOcasional fundoOcasional = new FundoOcasionalDAO(conn).buscarPorId(idFundoOcasional);
+		return fundoOcasional;
+		
+	}
+	
 	public void cadastrar(FundoOcasional fundoOcasional) throws SQLException, IOException, ParseException {
 		
 		Connection conn = BancoDados.conectar();

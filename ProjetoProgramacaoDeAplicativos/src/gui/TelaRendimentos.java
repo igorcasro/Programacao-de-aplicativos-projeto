@@ -44,8 +44,7 @@ public class TelaRendimentos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaRendimentos() {
-		
+	public TelaRendimentos() {		
 		this.initComponents();
 		
 		this.rendimentoService = new RendimentoService();
@@ -84,7 +83,7 @@ public class TelaRendimentos extends JFrame {
 	}
 	
 	private void initComponents() {		
-		
+		setTitle("Rendimentos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 749, 433);
 		contentPane = new JPanel();
@@ -198,8 +197,6 @@ public class TelaRendimentos extends JFrame {
 			e.printStackTrace();
 			this.dispose();
 		}
-		
-		System.out.println(rendimento);
 		
 		new CadastrarEditarRendimento("Editar Rendimento", rendimento).setVisible(true);
 		this.dispose();
